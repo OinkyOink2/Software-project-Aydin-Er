@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify, redirect
 import sqlite3
 import sys, random, argparse
 import numpy as np
-import math
+import math 
 app=Flask(__name__)
 
 from PIL import Image
