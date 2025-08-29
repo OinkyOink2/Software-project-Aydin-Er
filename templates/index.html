@@ -8,7 +8,12 @@
   <h1>Image → ASCII Converter</h1>
   <form method="post" enctype="multipart/form-data">
     <input type="file" name="file" accept="image/*" required>
-    <button type="submit">Upload</button>
+    <button type="submit">Convert</button>
   </form>
+
+  {% if ascii_art %}
+  <h2>Result:</h2>
+  <pre>{{ ascii_art }}</pre>
+  {% endif %}
 </body>
 </html>
