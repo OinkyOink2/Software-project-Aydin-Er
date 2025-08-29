@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from PIL import Image
+import io, base64
 
 app = Flask(__name__)
 
@@ -23,13 +24,20 @@ def image_to_ascii(image, new_width=100, charset="classic"):
 @app.route("/", methods=["GET", "POST"])
 def home():
     ascii_art = None
+    image_data = None
     if request.method == "POST":
         file = request.files["file"]
         width = int(request.form.get("width", 100))
         charset = request.form.get("charset", "classic")
         img = Image.open(file.stream)
         ascii_art = image_to_ascii(img, width, charset)
-    return render_template("index.html", ascii_art=ascii_art)
+
+        # Preview image
+        buf = io.BytesIO()
+        img.save(buf, format="PNG")
+        image_data = base64.b64encode(buf.getvalue()).decode("utf-8")
+
+    return render_template("index.html", ascii_art=ascii_art, image_data=image_data)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -3,11 +3,13 @@
 <head>
   <meta charset="utf-8">
   <title>Image → ASCII</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <h1>Image → ASCII Converter</h1>
   <form method="post" enctype="multipart/form-data">
-    <input type="file" name="file" accept="image/*" required><br>
+    <div id="dropzone">Drop image here or click to upload</div>
+    <input type="file" name="file" id="file" accept="image/*" hidden required><br>
     <label>Width: <input type="number" name="width" value="100"></label><br>
     <label>Charset: 
       <select name="charset">
@@ -18,9 +20,16 @@
     <button type="submit">Convert</button>
   </form>
 
+  {% if image_data %}
+  <h2>Uploaded Image:</h2>
+  <img src="data:image/png;base64,{{ image_data }}" style="max-width:200px;">
+  {% endif %}
+
   {% if ascii_art %}
   <h2>Result:</h2>
   <pre>{{ ascii_art }}</pre>
   {% endif %}
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
