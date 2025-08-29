@@ -5,6 +5,10 @@
   <title>Image → ASCII</title>
 </head>
 <body>
-  <h1>Upload an image to convert to ASCII</h1>
+  <h1>Image → ASCII Converter</h1>
+  <form method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept="image/*" required>
+    <button type="submit">Upload</button>
+  </form>
 </body>
 </html>
